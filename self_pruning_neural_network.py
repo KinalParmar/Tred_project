@@ -777,7 +777,7 @@ if __name__ == "__main__":
     # SAVE RESULTS
     
     print("\nSaving results to file...")
-    with open('results.txt', 'w') as f:
+    with open('results.txt', 'w', encoding='utf-8') as f:
         f.write("SELF-PRUNING NEURAL NETWORK - EXPERIMENTAL RESULTS\n")
         f.write("="*70 + "\n\n")
         
