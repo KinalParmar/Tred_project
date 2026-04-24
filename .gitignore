@@ -1,0 +1,7 @@
+.venv/
+data/
+*.tar.gz
+*.pt
+*.pth
+*.pkl
+*.npy
