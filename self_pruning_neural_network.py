@@ -20,9 +20,7 @@ from collections import defaultdict
 import os
 
 
-# ============================================================================
 # PART 1: CUSTOM PRUNABLE LINEAR LAYER
-# ============================================================================
 
 class PrunableLinear(nn.Module):
     """
@@ -138,9 +136,7 @@ class PrunableLinear(nn.Module):
         return gates.sum()
 
 
-# ============================================================================
 # PART 2: MODEL ARCHITECTURE
-# ============================================================================
 
 class PrunableNetwork(nn.Module):
     """
@@ -216,9 +212,7 @@ class PrunableNetwork(nn.Module):
         return sparsity_loss
 
 
-# ============================================================================
 # PART 3: LOSS FUNCTION
-# ============================================================================
 
 def compute_total_loss(outputs, targets, model, lambda_sparsity):
     """
@@ -266,9 +260,7 @@ def compute_total_loss(outputs, targets, model, lambda_sparsity):
     return total_loss, ce_loss, sparsity_loss
 
 
-# ============================================================================
 # PART 4: SPARSITY METRIC
-# ============================================================================
 
 def calculate_sparsity(model, threshold=1e-2):
     """
@@ -319,9 +311,7 @@ def calculate_sparsity(model, threshold=1e-2):
     return sparsity_percent
 
 
-# ============================================================================
 # PART 5: DATA LOADING
-# ============================================================================
 
 def load_cifar10_data(batch_size=128, num_workers=2):
     """
@@ -376,9 +366,7 @@ def load_cifar10_data(batch_size=128, num_workers=2):
     return train_loader, test_loader
 
 
-# ============================================================================
 # PART 6: TRAINING LOOP
-# ============================================================================
 
 def train_epoch(model, train_loader, optimizer, device, lambda_sparsity):
     """
@@ -446,9 +434,7 @@ def train_epoch(model, train_loader, optimizer, device, lambda_sparsity):
     return avg_loss, avg_ce_loss, avg_sparsity_loss
 
 
-# ============================================================================
 # PART 7: EVALUATION FUNCTION
-# ============================================================================
 
 def evaluate(model, test_loader, device):
     """
@@ -496,9 +482,7 @@ def evaluate(model, test_loader, device):
     return accuracy
 
 
-# ============================================================================
 # PART 8: MAIN TRAINING PIPELINE
-# ============================================================================
 
 def train_model(lambda_sparsity, num_epochs=20, batch_size=128, learning_rate=0.001):
     """
@@ -590,9 +574,7 @@ def train_model(lambda_sparsity, num_epochs=20, batch_size=128, learning_rate=0.
     return model, history, test_acc, sparsity
 
 
-# ============================================================================
 # PART 9: VISUALIZATION FUNCTIONS
-# ============================================================================
 
 def plot_gate_distributions(models_dict):
     """
@@ -646,7 +628,7 @@ def plot_gate_distributions(models_dict):
     
     plt.tight_layout()
     plt.savefig('gate_distributions.png', dpi=150, bbox_inches='tight')
-    print("✓ Gate distributions saved to 'gate_distributions.png'")
+    print("Gate distributions saved to 'gate_distributions.png'")
     plt.close()
 
 
@@ -709,9 +691,7 @@ def plot_training_metrics(histories_dict):
     plt.close()
 
 
-# ============================================================================
 # PART 10: MAIN EXECUTION
-# ============================================================================
 
 if __name__ == "__main__":
     print("\n" + "="*70)
@@ -720,9 +700,7 @@ if __name__ == "__main__":
     print("\nThis script demonstrates learnable pruning using gate parameters.")
     print("The network learns to prune its own weights during training.\n")
     
-    # =========================================================================
     # HYPERPARAMETERS
-    # =========================================================================
     
     lambda_values = [1e-5, 1e-4, 1e-3]  # Different sparsity regularization strengths
     num_epochs = 20
@@ -735,9 +713,7 @@ if __name__ == "__main__":
     print(f"  Batch size: {batch_size}")
     print(f"  Learning rate: {learning_rate}\n")
     
-    # =========================================================================
     # TRAIN MODELS WITH DIFFERENT LAMBDA VALUES
-    # =========================================================================
     
     results = []
     models_dict = {}
@@ -760,9 +736,7 @@ if __name__ == "__main__":
         models_dict[lambda_val] = model
         histories_dict[lambda_val] = history
     
-    # =========================================================================
     # PRINT RESULTS TABLE
-    # =========================================================================
     
     print("\n" + "="*70)
     print("EXPERIMENTAL RESULTS TABLE")
@@ -773,9 +747,7 @@ if __name__ == "__main__":
         print(f"{result['lambda']:<15.1e} {result['accuracy']:<20.2f} {result['sparsity']:<20.2f}")
     print("="*70 + "\n")
     
-    # =========================================================================
     # ANALYSIS
-    # =========================================================================
     
     print("TRADE-OFF ANALYSIS:")
     print("-" * 70)
@@ -796,17 +768,13 @@ if __name__ == "__main__":
     print("\nObservation: Higher λ increases sparsity at the cost of accuracy.")
     print("This demonstrates the trade-off between model efficiency and performance.\n")
     
-    # =========================================================================
     # GENERATE VISUALIZATIONS
-    # =========================================================================
     
     print("Generating visualizations...")
     plot_gate_distributions(models_dict)
     plot_training_metrics(histories_dict)
     
-    # =========================================================================
     # SAVE RESULTS
-    # =========================================================================
     
     print("\nSaving results to file...")
     with open('results.txt', 'w') as f:
@@ -832,7 +800,7 @@ if __name__ == "__main__":
         f.write("3. Optimal λ depends on application requirements\n")
         f.write("4. This trade-off is fundamental to neural network pruning\n")
     
-    print("✓ Results saved to 'results.txt'")
+    print(" Results saved to 'results.txt'")
     
     print("\n" + "="*70)
     print("PROJECT COMPLETE!")
